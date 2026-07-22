@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>强化学习发展树：三条主干（至2026，含文献链接）</title>
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --ink: #2C2C2A;
+    --muted: #5F5E5A;
+    --line: #B4B2A9;
+    --teal-bg: #E1F5EE; --teal-bd: #0F6E56; --teal-tx: #085041; --teal-sub: #0F6E56;
+    --coral-bg: #FAECE7; --coral-bd: #993C1D; --coral-tx: #712B13; --coral-sub: #993C1D;
+    --purple-bg: #EEEDFE; --purple-bd: #534AB7; --purple-tx: #3C3489; --purple-sub: #534AB7;
+    --amber-bg: #FAEEDA; --amber-bd: #854F0B; --amber-tx: #633806; --amber-sub: #854F0B;
+    --gray-bg: #F1EFE8; --gray-bd: #5F5E5A; --gray-tx: #2C2C2A; --gray-sub: #5F5E5A;
+    --pink-bg: #FBEAF0; --pink-bd: #993556; --pink-tx: #4B1528; --pink-sub: #993556;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1B1B19;
+      --ink: #E8E6DD;
+      --muted: #B4B2A9;
+      --line: #5F5E5A;
+      --teal-bg: #085041; --teal-bd: #5DCAA5; --teal-tx: #E1F5EE; --teal-sub: #9FE1CB;
+      --coral-bg: #712B13; --coral-bd: #F0997B; --coral-tx: #FAECE7; --coral-sub: #F5C4B3;
+      --purple-bg: #3C3489; --purple-bd: #AFA9EC; --purple-tx: #EEEDFE; --purple-sub: #CECBF6;
+      --amber-bg: #633806; --amber-bd: #EF9F27; --amber-tx: #FAEEDA; --amber-sub: #FAC775;
+      --gray-bg: #2C2C2A; --gray-bd: #888780; --gray-tx: #F1EFE8; --gray-sub: #B4B2A9;
+      --pink-bg: #72243E; --pink-bd: #ED93B1; --pink-tx: #FBEAF0; --pink-sub: #F4C0D1;
+    }
+  }
+  body { margin: 0; padding: 32px 16px; background: var(--bg); color: var(--ink);
+         font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+         display: flex; flex-direction: column; align-items: center; }
+  h1 { font-size: 20px; font-weight: 500; margin: 0 0 4px; }
+  .sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  svg { max-width: 820px; width: 100%; height: auto; }
+  .th { font-size: 14px; font-weight: 500; }
+  .ts { font-size: 12px; font-weight: 400; }
+  .lk { font-size: 11px; font-weight: 400; text-decoration: underline; cursor: pointer; }
+  svg a:hover text { opacity: 0.7; }
+  .note { font-size: 12.5px; color: var(--muted); max-width: 760px; line-height: 1.8; margin-top: 24px; }
+  .note b { color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+<h1>强化学习发展树：三条主干（1957 → 2026）</h1>
+<div class="sub">学什么（value / policy）× 评价信号从哪来（reward）· 每块附代表文献链接</div>
+
+<svg viewBox="0 0 820 1465" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>强化学习三主干发展树至2026含文献链接</title>
+<desc>根问题分为value、policy、reward三条路线，汇合于RLVR后再分为三个前沿分支，每块附论文链接</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- 根问题 -->
+<g>
+  <rect x="110" y="20" width="600" height="128" rx="8" fill="var(--gray-bg)" stroke="var(--gray-bd)" stroke-width="1"/>
+  <text class="th" x="410" y="46" text-anchor="middle" fill="var(--gray-tx)">根问题：只有最终结果，没有过程指导，程序如何学会做事？</text>
+  <text class="ts" x="410" y="70" text-anchor="middle" fill="var(--gray-sub)">教程序下棋：它走了一百步，最后只得到一句「赢了」或「输了」。没人告诉它每一步的好坏。</text>
+  <text class="ts" x="410" y="90" text-anchor="middle" fill="var(--gray-sub)">难题一：这句最终评价该记在哪几步的头上？（归因 / credit assignment）</text>
+  <text class="ts" x="410" y="110" text-anchor="middle" fill="var(--gray-sub)">难题二：这句评价本身从哪来？够不够密？会不会被钻空子？（reward 的来源与质量）</text>
+  <a href="http://incompleteideas.net/book/the-book.html" target="_blank"><text class="lk" x="410" y="132" text-anchor="middle" fill="var(--gray-sub)">标准教科书：Sutton &amp; Barto, Reinforcement Learning: An Introduction</text></a>
+</g>
+
+<line x1="410" y1="148" x2="410" y2="178" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- 理论奠基 -->
+<g>
+  <rect x="160" y="182" width="500" height="96" rx="8" fill="var(--gray-bg)" stroke="var(--gray-bd)" stroke-width="0.75"/>
+  <text class="th" x="410" y="206" text-anchor="middle" fill="var(--gray-tx)">理论奠基 1957–1988：Bellman 方程 · Sutton TD learning</text>
+  <text class="ts" x="410" y="226" text-anchor="middle" fill="var(--gray-sub)">TD 的本质：把末端那一句评价，自动摊派回中间每一步</text>
+  <text class="ts" x="410" y="244" text-anchor="middle" fill="var(--gray-sub)">——它同时是三条路线的共同起点</text>
+  <a href="https://link.springer.com/article/10.1007/BF00115009" target="_blank"><text class="lk" x="410" y="264" text-anchor="middle" fill="var(--gray-sub)">Sutton 1988, Learning to Predict by the Methods of Temporal Differences</text></a>
+</g>
+
+<!-- 三路分岔 -->
+<path d="M410 278 L410 300 L150 300 L150 320" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="278" x2="410" y2="320" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M410 278 L410 300 L670 300 L670 320" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- 车道标题 -->
+<text class="th" x="150" y="340" text-anchor="middle" fill="var(--teal-tx)">Value 路线：学「打分」</text>
+<text class="ts" x="150" y="358" text-anchor="middle" fill="var(--teal-sub)">先学会评估局面，行动是推论</text>
+<text class="th" x="410" y="340" text-anchor="middle" fill="var(--coral-tx)">Policy 路线：学「行动」</text>
+<text class="ts" x="410" y="358" text-anchor="middle" fill="var(--coral-sub)">直接调整行动规则本身</text>
+<text class="th" x="670" y="340" text-anchor="middle" fill="var(--purple-tx)">Reward 路线：造「评价」</text>
+<text class="ts" x="670" y="358" text-anchor="middle" fill="var(--purple-sub)">评价信号本身如何生产</text>
+
+<!-- Row A: y=374 h=92 -->
+<g>
+  <rect x="30" y="374" width="240" height="92" rx="8" fill="var(--teal-bg)" stroke="var(--teal-bd)" stroke-width="0.75"/>
+  <text class="th" x="150" y="398" text-anchor="middle" fill="var(--teal-tx)">Q-learning 1992</text>
+  <text class="ts" x="150" y="418" text-anchor="middle" fill="var(--teal-sub)">学「每个动作值多少分」</text>
+  <text class="ts" x="150" y="434" text-anchor="middle" fill="var(--teal-sub)">选动作 = 挑分最高的</text>
+  <a href="https://link.springer.com/article/10.1007/BF00992698" target="_blank"><text class="lk" x="150" y="454" text-anchor="middle" fill="var(--teal-sub)">Watkins &amp; Dayan 1992</text></a>
+</g>
+<g>
+  <rect x="290" y="374" width="240" height="92" rx="8" fill="var(--coral-bg)" stroke="var(--coral-bd)" stroke-width="0.75"/>
+  <text class="th" x="410" y="398" text-anchor="middle" fill="var(--coral-tx)">REINFORCE 1992</text>
+  <text class="ts" x="410" y="418" text-anchor="middle" fill="var(--coral-sub)">结果好就加大重演概率</text>
+  <text class="ts" x="410" y="434" text-anchor="middle" fill="var(--coral-sub)">不需要打分函数</text>
+  <a href="https://link.springer.com/article/10.1007/BF00992696" target="_blank"><text class="lk" x="410" y="454" text-anchor="middle" fill="var(--coral-sub)">Williams 1992</text></a>
+</g>
+<g>
+  <rect x="550" y="374" width="240" height="92" rx="8" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+  <text class="th" x="670" y="398" text-anchor="middle" fill="var(--purple-tx)">原始形态：末端奖励</text>
+  <text class="ts" x="670" y="418" text-anchor="middle" fill="var(--purple-sub)">胜负、游戏分数、到达与否</text>
+  <text class="ts" x="670" y="434" text-anchor="middle" fill="var(--purple-sub)">忠实但极稀疏</text>
+  <text class="ts" x="670" y="454" text-anchor="middle" fill="var(--purple-sub)">（环境自带，无单独文献）</text>
+</g>
+
+<line x1="150" y1="466" x2="150" y2="498" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="466" x2="410" y2="498" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="670" y1="466" x2="670" y2="498" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Row B: y=502 h=92 -->
+<g>
+  <rect x="30" y="502" width="240" height="92" rx="8" fill="var(--teal-bg)" stroke="var(--teal-bd)" stroke-width="0.75"/>
+  <text class="th" x="150" y="526" text-anchor="middle" fill="var(--teal-tx)">DQN 2013–15</text>
+  <text class="ts" x="150" y="546" text-anchor="middle" fill="var(--teal-sub)">神经网络打分曾必发散</text>
+  <text class="ts" x="150" y="562" text-anchor="middle" fill="var(--teal-sub)">两个工程装置使其稳定</text>
+  <a href="https://www.nature.com/articles/nature14236" target="_blank"><text class="lk" x="150" y="582" text-anchor="middle" fill="var(--teal-sub)">Mnih et al., Nature 2015</text></a>
+</g>
+<g>
+  <rect x="290" y="502" width="240" height="92" rx="8" fill="var(--coral-bg)" stroke="var(--coral-bd)" stroke-width="0.75"/>
+  <text class="th" x="410" y="526" text-anchor="middle" fill="var(--coral-tx)">TRPO→GAE→PPO 2015–17</text>
+  <text class="ts" x="410" y="546" text-anchor="middle" fill="var(--coral-sub)">每次只小步调整，防止崩坏</text>
+  <text class="ts" x="410" y="562" text-anchor="middle" fill="var(--coral-sub)">此后的默认训练算法</text>
+  <a href="https://arxiv.org/abs/1707.06347" target="_blank"><text class="lk" x="345" y="582" text-anchor="middle" fill="var(--coral-sub)">PPO 1707.06347</text></a>
+  <a href="https://arxiv.org/abs/1502.05477" target="_blank"><text class="lk" x="472" y="582" text-anchor="middle" fill="var(--coral-sub)">TRPO 1502.05477</text></a>
+</g>
+<g>
+  <rect x="550" y="502" width="240" height="92" rx="8" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+  <text class="th" x="670" y="526" text-anchor="middle" fill="var(--purple-tx)">Reward shaping 1999</text>
+  <text class="ts" x="670" y="546" text-anchor="middle" fill="var(--purple-sub)">人工添加中途奖励加密信号</text>
+  <text class="ts" x="670" y="562" text-anchor="middle" fill="var(--purple-sub)">设计不当会被钻空子</text>
+  <text class="ts" x="670" y="582" text-anchor="middle" fill="var(--purple-sub)">Ng, Harada &amp; Russell, ICML 1999</text>
+</g>
+
+<line x1="150" y1="594" x2="150" y2="626" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="594" x2="410" y2="626" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="670" y1="594" x2="670" y2="626" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Row C: y=630 h=92 -->
+<g>
+  <rect x="30" y="630" width="240" height="92" rx="8" fill="var(--teal-bg)" stroke="var(--teal-bd)" stroke-width="0.75"/>
+  <text class="th" x="150" y="654" text-anchor="middle" fill="var(--teal-tx)">AlphaGo 系 2016–19</text>
+  <text class="ts" x="150" y="674" text-anchor="middle" fill="var(--teal-sub)">自我对弈 + 搜索</text>
+  <text class="ts" x="150" y="690" text-anchor="middle" fill="var(--teal-sub)">评价 = 胜负，无法造假</text>
+  <a href="https://www.nature.com/articles/nature24270" target="_blank"><text class="lk" x="94" y="710" text-anchor="middle" fill="var(--teal-sub)">Zero, Nature 2017</text></a>
+  <a href="https://arxiv.org/abs/1911.08265" target="_blank"><text class="lk" x="212" y="710" text-anchor="middle" fill="var(--teal-sub)">MuZero 1911.08265</text></a>
+</g>
+<g>
+  <rect x="290" y="630" width="240" height="92" rx="8" fill="var(--coral-bg)" stroke="var(--coral-bd)" stroke-width="0.75"/>
+  <text class="th" x="410" y="654" text-anchor="middle" fill="var(--coral-tx)">InstructGPT 2022</text>
+  <text class="ts" x="410" y="674" text-anchor="middle" fill="var(--coral-sub)">PPO 管线用于语言模型</text>
+  <text class="ts" x="410" y="690" text-anchor="middle" fill="var(--coral-sub)">催生 ChatGPT</text>
+  <a href="https://arxiv.org/abs/2203.02155" target="_blank"><text class="lk" x="410" y="710" text-anchor="middle" fill="var(--coral-sub)">Ouyang et al. 2203.02155</text></a>
+</g>
+<g>
+  <rect x="550" y="630" width="240" height="92" rx="8" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+  <text class="th" x="670" y="654" text-anchor="middle" fill="var(--purple-tx)">Learned reward 2017</text>
+  <text class="ts" x="670" y="674" text-anchor="middle" fill="var(--purple-sub)">从人类偏好学出评价器</text>
+  <text class="ts" x="670" y="690" text-anchor="middle" fill="var(--purple-sub)">评价器可被讨好</text>
+  <a href="https://arxiv.org/abs/1706.03741" target="_blank"><text class="lk" x="670" y="710" text-anchor="middle" fill="var(--purple-sub)">Christiano et al. 1706.03741</text></a>
+</g>
+
+<!-- Row D: y=756 h=108 (reward only) -->
+<line x1="670" y1="722" x2="670" y2="752" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g>
+  <rect x="550" y="756" width="240" height="108" rx="8" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+  <text class="th" x="670" y="780" text-anchor="middle" fill="var(--purple-tx)">过程奖励 vs 结果奖励</text>
+  <text class="ts" x="670" y="800" text-anchor="middle" fill="var(--purple-sub)">PRM：给推理的每一步打分</text>
+  <text class="ts" x="670" y="816" text-anchor="middle" fill="var(--purple-sub)">ORM：只看最终答案对错</text>
+  <a href="https://arxiv.org/abs/2211.14275" target="_blank"><text class="lk" x="670" y="836" text-anchor="middle" fill="var(--purple-sub)">Uesato et al. 2211.14275</text></a>
+  <a href="https://arxiv.org/abs/2305.20050" target="_blank"><text class="lk" x="670" y="852" text-anchor="middle" fill="var(--purple-sub)">Lightman et al. 2305.20050</text></a>
+</g>
+
+<!-- 汇合箭头 -->
+<path d="M150 722 L150 902 L330 902 L330 926" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="722" x2="410" y2="926" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M670 864 L670 902 L460 902 L460 926" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="ts" x="150" y="892" text-anchor="middle" fill="var(--muted)">「评价无法造假」的思想</text>
+<text class="ts" x="580" y="892" text-anchor="middle" fill="var(--muted)">R1：弃过程奖励，用纯结果奖励</text>
+
+<!-- RLVR: y=930 h=112 -->
+<g>
+  <rect x="235" y="930" width="350" height="112" rx="8" fill="var(--amber-bg)" stroke="var(--amber-bd)" stroke-width="1"/>
+  <text class="th" x="410" y="954" text-anchor="middle" fill="var(--amber-tx)">RLVR 2024–25：o1 · DeepSeek-R1</text>
+  <text class="ts" x="410" y="974" text-anchor="middle" fill="var(--amber-sub)">只在数学 / 代码这类「答案可机器核验」的领域训练</text>
+  <text class="ts" x="410" y="992" text-anchor="middle" fill="var(--amber-sub)">评价重新无法造假；归因交还给模型的长链思考</text>
+  <a href="https://arxiv.org/abs/2501.12948" target="_blank"><text class="lk" x="320" y="1012" text-anchor="middle" fill="var(--amber-sub)">R1 2501.12948</text></a>
+  <a href="https://arxiv.org/abs/2402.03300" target="_blank"><text class="lk" x="480" y="1012" text-anchor="middle" fill="var(--amber-sub)">GRPO 2402.03300</text></a>
+  <a href="https://openai.com/index/learning-to-reason-with-llms/" target="_blank"><text class="lk" x="410" y="1030" text-anchor="middle" fill="var(--amber-sub)">o1: Learning to Reason with LLMs（OpenAI）</text></a>
+</g>
+
+<!-- RLVR之后：三分支 -->
+<path d="M410 1042 L410 1064 L150 1064 L150 1086" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="1042" x2="410" y2="1086" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M410 1042 L410 1064 L670 1064 L670 1086" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Branches: y=1090 h=128 -->
+<g>
+  <rect x="30" y="1090" width="240" height="128" rx="8" fill="var(--coral-bg)" stroke="var(--coral-bd)" stroke-width="0.75"/>
+  <text class="th" x="150" y="1112" text-anchor="middle" fill="var(--coral-tx)">分支一：干活的 RL</text>
+  <text class="ts" x="150" y="1132" text-anchor="middle" fill="var(--coral-sub)">Agentic RL 2025–26</text>
+  <text class="ts" x="150" y="1148" text-anchor="middle" fill="var(--coral-sub)">修真实代码库、操作电脑</text>
+  <text class="ts" x="150" y="1164" text-anchor="middle" fill="var(--coral-sub)">评价 = 任务真的完成没有</text>
+  <a href="https://arxiv.org/abs/2502.18449" target="_blank"><text class="lk" x="150" y="1184" text-anchor="middle" fill="var(--coral-sub)">SWE-RL 2502.18449</text></a>
+  <a href="https://arxiv.org/abs/2507.20534" target="_blank"><text class="lk" x="150" y="1200" text-anchor="middle" fill="var(--coral-sub)">Kimi K2 2507.20534</text></a>
+</g>
+<g>
+  <rect x="290" y="1090" width="240" height="128" rx="8" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+  <text class="th" x="410" y="1112" text-anchor="middle" fill="var(--purple-tx)">分支二：清单式评价</text>
+  <text class="ts" x="410" y="1132" text-anchor="middle" fill="var(--purple-sub)">Rubric rewards 2025–26</text>
+  <text class="ts" x="410" y="1148" text-anchor="middle" fill="var(--purple-sub)">把模糊任务拆成可核对标准</text>
+  <text class="ts" x="410" y="1164" text-anchor="middle" fill="var(--purple-sub)">清单同样已被发现可钻空子</text>
+  <a href="https://arxiv.org/abs/2507.17746" target="_blank"><text class="lk" x="410" y="1184" text-anchor="middle" fill="var(--purple-sub)">Rubrics as Rewards 2507.17746</text></a>
+  <a href="https://arxiv.org/abs/2506.00103" target="_blank"><text class="lk" x="410" y="1200" text-anchor="middle" fill="var(--purple-sub)">Writing-Zero 2506.00103</text></a>
+</g>
+<g>
+  <rect x="550" y="1090" width="240" height="128" rx="8" fill="var(--teal-bg)" stroke="var(--teal-bd)" stroke-width="0.75"/>
+  <text class="th" x="670" y="1112" text-anchor="middle" fill="var(--teal-tx)">分支三：评价者升级</text>
+  <text class="ts" x="670" y="1132" text-anchor="middle" fill="var(--teal-sub)">Agentic verifier 2025–26</text>
+  <text class="ts" x="670" y="1148" text-anchor="middle" fill="var(--teal-sub)">评价者自己查资料、跑代码</text>
+  <text class="ts" x="670" y="1164" text-anchor="middle" fill="var(--teal-sub)">验证本身开始消耗大量算力</text>
+  <a href="https://arxiv.org/abs/2504.02495" target="_blank"><text class="lk" x="670" y="1184" text-anchor="middle" fill="var(--teal-sub)">DeepSeek GRM 2504.02495</text></a>
+  <a href="https://arxiv.org/abs/2604.16004" target="_blank"><text class="lk" x="670" y="1200" text-anchor="middle" fill="var(--teal-sub)">AgentV-RL 2604.16004</text></a>
+</g>
+
+<!-- 汇入开放问题 -->
+<path d="M150 1218 L150 1256 L330 1256 L330 1280" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="410" y1="1218" x2="410" y2="1280" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M670 1218 L670 1256 L490 1256 L490 1280" fill="none" stroke="var(--line)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- 开放问题: y=1284 h=110 -->
+<g>
+  <rect x="185" y="1284" width="450" height="110" rx="8" fill="var(--pink-bg)" stroke="var(--pink-bd)" stroke-width="1" stroke-dasharray="6 4"/>
+  <text class="th" x="410" y="1310" text-anchor="middle" fill="var(--pink-tx)">开放的树梢（2026，未解决）</text>
+  <text class="ts" x="410" y="1332" text-anchor="middle" fill="var(--pink-sub)">当任务没有标准答案时（好的写作、好的研究、好的判断），</text>
+  <text class="ts" x="410" y="1350" text-anchor="middle" fill="var(--pink-sub)">如何造出一个既够密、又不被钻空子、还负担得起的评价来源？</text>
+  <text class="ts" x="410" y="1368" text-anchor="middle" fill="var(--pink-sub)">三个分支是同一问题的三种下注，尚无公认答案</text>
+</g>
+
+<!-- 图例 -->
+<rect x="120" y="1424" width="12" height="12" rx="3" fill="var(--teal-bg)" stroke="var(--teal-bd)" stroke-width="0.75"/>
+<text class="ts" x="140" y="1434" fill="var(--muted)">value / 评价能力线</text>
+<rect x="300" y="1424" width="12" height="12" rx="3" fill="var(--coral-bg)" stroke="var(--coral-bd)" stroke-width="0.75"/>
+<text class="ts" x="320" y="1434" fill="var(--muted)">policy / 行动线</text>
+<rect x="460" y="1424" width="12" height="12" rx="3" fill="var(--purple-bg)" stroke="var(--purple-bd)" stroke-width="0.75"/>
+<text class="ts" x="480" y="1434" fill="var(--muted)">reward / 评价来源线</text>
+<rect x="640" y="1424" width="12" height="12" rx="3" fill="var(--pink-bg)" stroke="var(--pink-bd)" stroke-width="0.75" stroke-dasharray="4 3"/>
+<text class="ts" x="660" y="1434" fill="var(--muted)">未解决</text>
+</svg>
+
+<div class="note">
+<b>文献选择说明。</b>每块只放最能代表该节点的一至两篇：DQN 用 Nature 2015 版（2013 arXiv 版为 1312.5602）；AlphaGo 系用 AlphaGo Zero（Nature 2017）与 MuZero 作为路线两端，原始 AlphaGo 为 Nature 2016（nature16961）、AlphaZero 为 Science 2018；GAE 为 arXiv:1506.02438；Reward shaping（Ng, Harada &amp; Russell, "Policy Invariance under Reward Transformations", ICML 1999）早于 arXiv 时代，无稳定公开链接，按会议出处标注。分支节点选取标准：分支一取「真实软件环境 + 纯结果奖励」的首个规模化证明（SWE-RL）与 agentic 训练的开源旗舰（Kimi K2）；分支二取 rubric-as-reward 的定义性论文与首个把不可验证任务桥接到可验证奖励的工作；分支三取「给评价器做推理时扩展」（DeepSeek GRM/SPCT）与「评价器本身成为带工具的 agent」（AgentV-RL, ACL 2026）。
+<br><br>
+<b>读法（承前）：</b>reward 路线的密度—忠实度拉锯已重演两轮（shaping/PRM 被钻空子 → 退回结果奖励；rubric 加密 → rubric 又被钻空子）；RLVR 后的三分支是对「可核验领域快被吃完」这一瓶颈的三种下注，分别撞上归因与查询成本、清单可 game 性、验证算力经济学三堵墙——没有一支同时解决密度、中立性、成本三者。
+</div>
+</body>
+</html>
